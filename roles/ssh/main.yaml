@@ -1,0 +1,31 @@
+- name: Create local directory for ssh keys
+  local_action:
+    module: file
+    path: files/keys
+    state: directory
+
+- name: Wait for ssh-server to start
+  local_action:
+    module: wait_for
+    host: "{{ name }}"
+    port: "22"
+    search_regex: OpenSSH
+    delay: "3"
+    timeout: "300"
+
+- name: generate key for ubuntu user
+  user:
+    name: "{{ instance_user }}"
+    generate_ssh_key: true
+
+- name: Get public key
+  fetch:
+    src: /home/{{ instance_user }}/.ssh/id_rsa.pub
+    dest: files/keys/{{ name }}.pub
+    flat: true
+
+- name: Get the private key
+  fetch:
+    src: /home/{{ instance_user }}/.ssh/id_rsa
+    dest: files/keys/{{ name }}
+    flat: true

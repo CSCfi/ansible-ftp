@@ -1,0 +1,50 @@
+## Create instance
+- name: Create instance
+  openstack.cloud.server:
+    state: present
+    name: "{{ instance_name }}"
+    image: "Ubuntu-22.04"
+    flavor: "standard.small"
+    # image: "{{ os_image }}"
+    # flavor: "{{ flavor }}"
+    key_name: "{{ key_name }}"
+    network: "{{ network }}"
+    security_groups: "{{ instance_name }}"
+    meta:
+      hostname: "{{ instance_name }}"
+      group: "{{ instance_name }}"
+  retries: 3
+  async: 300
+  poll: 0
+  register: server
+
+- name: Checking instance started
+  async_status: 
+    jid: "{{ server.ansible_job_id }}"
+  register: srv
+  until: srv.finished
+  retries: 60
+  delay: 5
+
+## Assign Floating IP
+- name: Acquiring Floating IP
+  openstack.cloud.floating_ip:
+    state: present
+    server: "{{ instance_name }}"
+    network: "public"
+    # network: "{{ floating_ip_pool }}"
+    wait: true
+    timeout: 60
+  delay: 1
+  retries: 3
+  async: 60
+  poll: 0
+  register: server_ip
+
+- name: Waiting for IP and Check
+  async_status:
+    jid: "{{ server_ip.ansible_job_id }}"
+  register: srv_ip
+  until: srv_ip.finished
+  retries: 60
+  delay: 1

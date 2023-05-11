@@ -1,0 +1,60 @@
+- hosts: localhost
+  vars_prompt:
+    - name: instance_name
+      prompt: Instance name?
+      private: no
+      default: "ftp-server"
+
+    - name: os_image
+      prompt: Image?
+      private: no
+      default: "Ubuntu-22.04"
+
+    - name: flavor
+      prompt: Flavor?
+      private: no
+      default: "standard.small"
+
+    - name: key_name
+      prompt: Key name?
+      private: no
+
+    - name: network
+      prompt: Network?
+      private: no
+    
+    - name: ftp_user
+      prompt: FTP user?
+      private: no
+      default: ftpuser
+
+    - name: ftp_user_password
+      prompt: FTP user password?
+      private: yes
+      confirm: yes
+
+  tasks:
+  - set_fact:
+      ftpuser: "{{ ftp_user }}"
+      passwd: "{{ ftp_user_password }}"
+      instance: "{{ instance_name }}"
+
+  - include_role:
+      name: instances
+  
+  - include_role:
+      name: openstack_facts
+
+- hosts: created_instance
+  vars:
+     ftp_user: "{{ hostvars['localhost']['ftpuser'] }}"
+     pass_user: "{{ hostvars['localhost']['passwd'] }}"
+     output_instance: "{{ hostvars['localhost']['instance'] }}"
+
+  tasks:  
+  - include_role:
+      name: ftp
+
+  - name: Output message
+    debug:
+      msg: "The instance {{ output_instance }} has been created with public IP address: {{ ansible_host }}. The user is {{ ftp_user }}"

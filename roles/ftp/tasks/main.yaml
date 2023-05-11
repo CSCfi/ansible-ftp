@@ -1,0 +1,78 @@
+## Create ftpuser
+- name: Create user
+  become: true
+  user:
+    state: present
+    name: "{{ ftp_user }}"
+    password: "{{ pass_user | password_hash('sha512') }}"
+    shell: /usr/sbin/nologin
+
+## Create default directory for default ftpuser
+- name: Create FTP home directory
+  become: true
+  file:
+    path: "/etc/vsftpd/users.d/{{ ftp_user }}/ftp"
+    state: directory
+    mode: a-w
+    owner: nobody
+    group: nogroup
+
+- name: Create directory for files upload
+  become: true
+  file:
+    path: "/etc/vsftpd/users.d/{{ ftp_user }}/ftp/files"
+    state: directory
+    owner: "{{ ftp_user }}"
+    group: "{{ ftp_user }}"
+
+## Add /usr/sbin/nologin in /etc/shells
+- name: Add line in /etc/shells
+  become: true
+  lineinfile:
+    dest: /etc/shells
+    line: /usr/sbin/nologin
+
+## Install and configure vsftpd
+- name: Update apt cache
+  become: true
+  apt:
+    update_cache: true
+  retries: 2
+
+- name: Install vsftp
+  become: true
+  package:
+    name: vsftpd
+    state: latest
+
+- name: Copy config files
+  become: true
+  synchronize:
+    src: files/vsftpd.conf
+    dest: /etc/
+
+- name: Change group and owner
+  become: true
+  file:
+    path: /etc/vsftpd.conf
+    owner: root
+    group: root
+
+- name: Create userlist
+  become: true
+  lineinfile:
+    dest: /etc/vsftpd.userlist
+    create: true
+    line: "{{ ftp_user }}"
+
+- name: Copy certificate
+  become: true
+  synchronize:
+    src: files/vsftpd.pem
+    dest: /etc/ssl/certs/
+
+- name: Restart vsftpd service
+  become: true
+  service:
+    name: vsftpd
+    state: restarted

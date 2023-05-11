@@ -1,0 +1,18 @@
+## Create ftpuser
+- name: Create user
+  become: true
+  user:
+    state: present
+    name: "{{ ftp_user }}"
+    password: "{{ pass_user | password_hash('sha512') }}"
+    shell: /usr/sbin/nologin
+
+## Create default directory for default ftpuser
+- name: Create FTP home directory
+  become: true
+  file:
+    path: "/etc/vsftpd/users.d/{{ ftp_user }}/ftp"
+    state: directory
+    mode: a-w
+    owner: nobody
+    group: nogroup
