@@ -7,7 +7,7 @@
     password: "{{ pass_user | password_hash('sha512') }}"
     shell: /usr/sbin/nologin
 
-## Create default directory for default ftpuser
+## Create default directory for ftpuser
 - name: Create FTP home directory
   become: true
   file:
@@ -16,3 +16,11 @@
     mode: a-w
     owner: nobody
     group: nogroup
+
+- name: Create directory for files upload
+  become: true
+  file:
+    path: "/etc/vsftpd/users.d/{{ ftp_user }}/ftp/files"
+    state: directory
+    owner: "{{ ftp_user }}"
+    group: "{{ ftp_user }}"
