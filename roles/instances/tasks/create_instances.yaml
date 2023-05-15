@@ -30,6 +30,7 @@
     state: present
     server: "{{ instance_name }}"
     network: "public"
+    reuse: true
     # network: "{{ floating_ip_pool }}"
     wait: true
     timeout: 60

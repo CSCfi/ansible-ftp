@@ -47,20 +47,20 @@
     remote_ip_prefix: 0.0.0.0/0
 
 ## Default Security Group
-- openstack.cloud.security_group_rule:
-    security_group: "{{ instance_name }}"
-    direction: egress
-    protocol: any
-    remote_ip_prefix: 0.0.0.0/0
+# - openstack.cloud.security_group_rule:
+#     security_group: "{{ instance_name }}"
+#     direction: egress
+#     protocol: any
+#     remote_ip_prefix: 0.0.0.0/0
 
-- openstack.cloud.security_group_rule:
-    security_group: "{{ instance_name }}"
-    direction: egress
-    ethertype: IPv6
-    protocol: any
-    remote_ip_prefix: ::/0
+# - openstack.cloud.security_group_rule:
+#     security_group: "{{ instance_name }}"
+#     direction: egress
+#     ethertype: IPv6
+#     protocol: any
+#     remote_ip_prefix: ::/0
 
-- openstack.cloud.security_group_rule:
-    security_group: "{{ instance_name }}"
-    protocol: any
-    remote_group: "{{ instance_name }}"
+# - openstack.cloud.security_group_rule:
+#     security_group: "{{ instance_name }}"
+#     protocol: any
+#     remote_group: "{{ instance_name }}"
