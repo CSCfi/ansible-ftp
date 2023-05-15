@@ -5,6 +5,18 @@ Run this playbook to create an instance on your Openstack space, then install an
 
 Requirements
 ------------
+!!! info
+- Tested on macOS Ventura and Ubuntu 22.04.
+- Ansible version 2.14
+- Ansible openstack.cloud 1.10.0
+- Python module openstacksdk 1.1.0
+
+For Ubuntu, add the Ansible repo to have the latest version available:
+```sh
+sudo apt-add-repository ppa:ansible/ansible
+```
+
+
 You must have the openstack.cloud collection installed: https://docs.ansible.com/ansible/latest/collections/openstack/cloud/index.html
 Type this command:
 ```sh
