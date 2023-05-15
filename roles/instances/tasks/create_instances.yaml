@@ -3,10 +3,8 @@
   openstack.cloud.server:
     state: present
     name: "{{ instance_name }}"
-    image: "Ubuntu-22.04"
-    flavor: "standard.small"
-    # image: "{{ os_image }}"
-    # flavor: "{{ flavor }}"
+    image: "{{ os_image }}"
+    flavor: "{{ flavor }}"
     key_name: "{{ key_name }}"
     network: "{{ network }}"
     security_groups: "{{ instance_name }}"
