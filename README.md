@@ -5,6 +5,15 @@ Run this playbook to create an instance on your Openstack space, then install an
 
 Requirements
 ------------
+You must have the openstack.cloud collection installed: https://docs.ansible.com/ansible/latest/collections/openstack/cloud/index.html
+Type this command:
+```sh
+ansible-galaxy collection install openstack.cloud
+```
+and the latest version of openstacksdk of Python: https://pypi.org/project/openstacksdk/  
+```sh
+pip install openstacksdk
+```
 
 You must source your project before launching this playbook:  
 ```sh
