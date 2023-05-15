@@ -51,7 +51,10 @@
      pass_user: "{{ hostvars['localhost']['passwd'] }}"
      output_instance: "{{ hostvars['localhost']['instance'] }}"
 
-  tasks:  
+  tasks:
+  - include_role:
+      name: create_users
+
   - include_role:
       name: ftp
 

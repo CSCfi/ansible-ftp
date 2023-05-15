@@ -1,12 +1,3 @@
-## Create ftpuser
-- name: Create user
-  become: true
-  user:
-    state: present
-    name: "{{ ftp_user }}"
-    password: "{{ pass_user | password_hash('sha512') }}"
-    shell: /usr/sbin/nologin
-
 ## Add /usr/sbin/nologin in /etc/shells
 - name: Add line in /etc/shells
   become: true
