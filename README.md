@@ -1,14 +1,14 @@
 Ansible Playbook for Openstack + vsftpd
 =========
 
-Run this playbook to create an instance on your Openstack space, then install and configure vsftpd.
+Run this playbook to create an instance on your Openstack space, then install and configure vsftpd. Installation tested on Ubuntu 22.04.
 
 Requirements
 ------------
-- Tested on macOS Ventura and Ubuntu 22.04.
-- Ansible version 2.14
-- Ansible openstack.cloud 1.10.0
-- Python module openstacksdk 1.1.0
+- Ansible Playbook tested on macOS Ventura and Ubuntu 22.04:
+  - Ansible version 2.14
+  - Ansible openstack.cloud 1.10.0
+  - Python module openstacksdk 1.1.0
 
 For Ubuntu, add the Ansible repo to have the latest version available:
 ```sh
@@ -21,7 +21,7 @@ Type this command:
 ```sh
 ansible-galaxy collection install openstack.cloud
 ```
-and the latest version of openstacksdk of Python: https://pypi.org/project/openstacksdk/  
+and the latest version of openstacksdk for Python: https://pypi.org/project/openstacksdk/  
 ```sh
 pip install openstacksdk
 ```
