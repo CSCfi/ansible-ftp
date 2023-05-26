@@ -1,3 +1,7 @@
+- pause:
+    echo: false
+    seconds: 10
+
 ## Create ftpuser
 - name: Create user
   become: true

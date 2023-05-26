@@ -46,6 +46,7 @@
       name: openstack_facts
 
 - hosts: created_instance
+  gather_facts: false
   vars:
      ftp_user: "{{ hostvars['localhost']['ftpuser'] }}"
      pass_user: "{{ hostvars['localhost']['passwd'] }}"
