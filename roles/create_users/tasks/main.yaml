@@ -20,7 +20,7 @@
     state: directory
     mode: a-w
     owner: nobody
-    group: nogroup
+    group: nobody
 
 - name: Create directory for files upload
   become: true

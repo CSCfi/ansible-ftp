@@ -1,0 +1,11 @@
+- hosts: all
+  gather_facts: true
+  environment:
+    https_proxy: http://193.167.189.10:8443/
+    http_proxy: http://193.167.189.10:8443/
+  tasks:
+  - include_role:
+      name: create_users
+  - include_role:
+      name: ftp
+
