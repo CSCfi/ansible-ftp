@@ -1,8 +1,10 @@
 - hosts: all
   gather_facts: true
+  vars_files:
+    - [ "vars/{{ ansible_facts['os_family'] }}.yaml"]
   environment:
-    https_proxy: http://193.167.189.10:8443/
-    http_proxy: http://193.167.189.10:8443/
+    https_proxy: "{{ http_proxy }}"
+    http_proxy: "{{ http_proxy }}"
   tasks:
   - include_role:
       name: create_users

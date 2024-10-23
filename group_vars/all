@@ -1,2 +1,4 @@
 ftp_user: tesk
-pass_user: 55gPhXS_lHW6QZ9
+pass_user: # Password for FTP
+http_proxy: # URL for http proxy (http://$IP:$PORT/
+

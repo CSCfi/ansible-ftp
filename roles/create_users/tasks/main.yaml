@@ -19,8 +19,8 @@
     path: "/etc/vsftpd/users.d/{{ ftp_user }}/ftp"
     state: directory
     mode: a-w
-    owner: nobody
-    group: nobody
+    owner: "{{ ftp_group }}"
+    group: "{{ ftp_group }}"
 
 - name: Create directory for files upload
   become: true
